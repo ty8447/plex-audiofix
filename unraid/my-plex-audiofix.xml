@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>plex-audiofix</Name>
+  <Repository>ghcr.io/ty8447/plex-audiofix:latest</Repository>
+  <Registry>https://github.com/ty8447/plex-audiofix</Registry>
+  <Network>bridge</Network>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Overview>Puts your preferred-language audio track first and default in every MKV/MP4 so Plex downloads play the right language. Lossless remux. Scans hourly and fixes new imports instantly via a Sonarr/Radarr webhook.</Overview>
+  <Category>MediaServer:Video Tools:</Category>
+  <Config Name="Webhook port" Target="8787" Default="8787" Mode="tcp" Description="Sonarr/Radarr Connect > Webhook > http://[UNRAID-IP]:8787" Type="Port" Display="always" Required="true" Mask="false">8787</Config>
+  <Config Name="Data" Target="/data" Default="/mnt/user/data" Mode="rw" Description="Map this EXACTLY like Sonarr/Radarr do (same host folder, same container path) so no path mapping is needed." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/data</Config>
+  <Config Name="Appdata" Target="/config" Default="/mnt/user/appdata/plex-audiofix" Mode="rw" Description="State database" Type="Path" Display="advanced" Required="true" Mask="false">/mnt/user/appdata/plex-audiofix</Config>
+  <Config Name="Media folders" Target="MEDIA_DIRS" Default="/data/media" Mode="" Description="Comma-separated container paths to watch" Type="Variable" Display="always" Required="true" Mask="false">/data/media</Config>
+  <Config Name="Preferred languages" Target="PREFERRED_LANGUAGES" Default="eng" Mode="" Description="Priority order, e.g. eng or eng,spa" Type="Variable" Display="always" Required="true" Mask="false">eng</Config>
+  <Config Name="Dry run" Target="DRY_RUN" Default="true" Mode="" Description="true = only log what would change. Set false after checking the log." Type="Variable" Display="always" Required="true" Mask="false">true</Config>
+  <Config Name="Plex URL" Target="PLEX_URL" Default="" Mode="" Description="e.g. http://192.168.1.10:32400 (optional: rescans fixed folders)" Type="Variable" Display="always" Required="false" Mask="false"></Config>
+  <Config Name="Plex token" Target="PLEX_TOKEN" Default="" Mode="" Description="X-Plex-Token" Type="Variable" Display="always" Required="false" Mask="true"></Config>
+  <Config Name="Plex path map" Target="PLEX_PATH_MAP" Default="" Mode="" Description="Only if Plex sees media at a different path: /data/media:/media" Type="Variable" Display="advanced" Required="false" Mask="false"></Config>
+  <Config Name="Arr path map" Target="ARR_PATH_MAP" Default="" Mode="" Description="Only if Sonarr/Radarr use a different path: /tv:/data/media/tv,/movies:/data/media/movies" Type="Variable" Display="advanced" Required="false" Mask="false"></Config>
+  <Config Name="Notify URL" Target="NOTIFY_URL" Default="" Mode="" Description="Discord webhook or ntfy topic URL for fix summaries and errors" Type="Variable" Display="always" Required="false" Mask="true"></Config>
+  <Config Name="Skip hardlinked" Target="SKIP_HARDLINKED" Default="true" Mode="" Description="true = wait until the torrent is removed, then fix. false = fix now (temporarily doubles disk use while seeding)." Type="Variable" Display="advanced" Required="true" Mask="false">true</Config>
+  <Config Name="Scan interval (min)" Target="INTERVAL_MINUTES" Default="60" Mode="" Description="" Type="Variable" Display="advanced" Required="true" Mask="false">60</Config>
+  <Config Name="Min file age (min)" Target="MIN_FILE_AGE_MINUTES" Default="30" Mode="" Description="Hourly scan skips files modified more recently than this" Type="Variable" Display="advanced" Required="true" Mask="false">30</Config>
+  <Config Name="TZ" Target="TZ" Default="America/New_York" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">America/New_York</Config>
+</Container>
